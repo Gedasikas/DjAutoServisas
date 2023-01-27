@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title%}AutoServisas{% endblock %}
+{% block content%}
+{% load static %}
+<h4>Automobilis: {{automobilis.automobilio_modelis_id}}: {{ automobilis.valstybinis_nr }}</h4>
+<hr>
+<div class="col-md-4 d-flex align-items-stretch">
+    <div>
+        {% if automobilis.paveikslelis %}
+        <img src="{{ automobilis.paveikslelis.url }}" class="card-img-top" alt="...">
+        {% else %}
+        <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+        {% endif %}
+    </div>
+</div>
+<ul>
+    <li><b>Savininikas:</b> {{ automobilis.kliento_v }} {{ automobilis.kliento_p }}</li>
+    <li><b>Kėbulo numeris:</b> {{ automobilis.vin_kodas }}</li>
+</ul>
+<p>{{ automobilis.komentarai | safe}}</p>
+
+{% endblock %}

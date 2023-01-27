@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title%}Paieška{% endblock %}
+{% block content%}
+<h1>Rezultatai pagal "{{ query }}" paiešką</h1>
+<hr>
+{% if automobiliai %}
+<ul>
+    {% for automobilis in automobiliai %}
+    <li>
+        <a href="{{ automobilis.id }}">{{ automobilis }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Nieko nerasta</p>
+{% endif %}
+{% endblock %}

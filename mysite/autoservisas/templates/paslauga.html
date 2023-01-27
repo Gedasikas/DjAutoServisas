@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title%}AutoServisas{% endblock %}
+{% block content%}
+<h4>{{ paslauga.pavadinimas }}</h4>
+<ul>
+    <li><b>Vieneto kaina:</b> {{ paslauga.kaina}}</li>
+    <li><b>Aprašymas:</b> <br>{{ paslauga.aprasymas }}</li>
+</ul>
+
+
+{% endblock %}

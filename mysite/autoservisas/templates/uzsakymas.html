@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title%}AutoServisas{% endblock %}
+{% block content%}
+<h3>Detali {{uzsakymas.automobilis_id}} užsakymo informacija:</h3>
+<ul>
+    <li><b>Savininikas:</b> {{ uzsakymas.automobilis_id.kliento_v }} {{ uzsakymas.automobilis_id.kliento_p }}</li>
+    <li><b>Kėbulo numeris:</b> {{ uzsakymas.automobilis_id.vin_kodas }}</li>
+    <li><b>Užsakymo data:</b> {{ uzsakymas.data }}</li>
+</ul>
+<hr>
+<h4>Užsakytos paslaugos</h4>
+<div class="container">
+    <table class="table table-dark table-striped text-warning">
+        <thead>
+        <tr>
+            <th>Paslauga</th>
+            <th>Kaina</th>
+            <th>Kiekis</th>
+            <th>Suma</th>
+        </tr>
+        </thead>
+        {% for eilute in uzsakymas.eilutes.all %}
+        <tbody>
+        <tr>
+            <td class="{% if eilute.status == 's' %}text-success{% elif eilute.status == 't' %}text-warning{% else %}text-danger{% endif %}">
+                {{ eilute.paslauga_id.pavadinimas }} ({{ eilute.get_status_display }})
+            </td>
+            <td>{{ eilute.paslauga_id.kaina }}</td>
+            <td>{{ eilute.kiekis }}</td>
+            <td>{{ eilute.suma }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <th colspan="3">Bendra suma</th>
+            <td>{{ uzsakymas.bendra_suma}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<hr>
+<h4>Komentarai:</h4>
+{% if uzsakymas.uzsakymo_komentarai.all %}
+{% for komentaras in uzsakymas.uzsakymo_komentarai.all %}
+<hr>
+<strong>{{ komentaras.komentatorius }}</strong>, <em>{{ komentaras.komentaro_data}}</em>
+<p>{{ komentaras.komentaras }}</p>
+{% endfor %}
+{% else %}
+<p>Užsakymas neturi komentarų</p>
+{% endif %}
+{% if user.is_authenticated %}
+<div class="fieldWrapper">
+    <hr>
+    <br/>
+    <h4>Palikite komentarą:</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.komentaras }}
+        <input type="submit" value="Išsaugoti">
+    </form>
+</div>
+{% endif %}
+{% endblock %}
