@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
 from tinymce.models import HTMLField
+from PIL import Image
 
 class Automobilio_modelis(models.Model):
     marke = models.CharField('Markė', max_length=100, help_text='Įveskite automobilio markę (pvz.: Toyota')
@@ -122,3 +123,22 @@ class Paslauga(models.Model):
     class Meta:
         verbose_name = 'Paslauga'
         verbose_name_plural = 'Paslaugos'
+
+class Profilis(models.Model):
+    vartotojas = models.OneToOneField(User, on_delete=models.CASCADE)
+    nuotrauka = models.ImageField(default='profile_pics/default.png', upload_to='profile_pics')
+
+    def __str__(self):
+        return f"{self.vartotojas.username} profilis"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.nuotrauka.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.nuotrauka.path)
+
+    class Meta:
+        verbose_name = 'Profilis'
+        verbose_name_plural = 'Profiliai'

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Automobilio_modelis, Automobilis, Uzsakymas, Uzsakymo_eilute, Paslauga, UzsakymoKomentarai
+from .models import Automobilio_modelis, Automobilis, Uzsakymas, Uzsakymo_eilute, Paslauga, UzsakymoKomentarai, Profilis
 
 class Automobilio_modelisAdmin(admin.ModelAdmin):
     list_display = ('marke', 'modelis')
@@ -35,3 +35,4 @@ admin.site.register(Uzsakymas, UzsakymasAdmin)
 admin.site.register(Uzsakymo_eilute, Uzsakymo_eiluteAdmin)
 admin.site.register(Paslauga, PaslaugaAdmin)
 admin.site.register(UzsakymoKomentarai, UzsakymoKomentaraiAdmin)
+admin.site.register(Profilis)

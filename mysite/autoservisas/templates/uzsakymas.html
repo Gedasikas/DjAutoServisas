@@ -3,6 +3,7 @@
 {% block content%}
 <h3>Detali {{uzsakymas.automobilis_id}} užsakymo informacija:</h3>
 <ul>
+    <img class="rounded-circle" src="{{uzsakymas.uzsakovas.profilis.nuotrauka.url}}">
     <li><b>Savininikas:</b> {{ uzsakymas.automobilis_id.kliento_v }} {{ uzsakymas.automobilis_id.kliento_p }}</li>
     <li><b>Kėbulo numeris:</b> {{ uzsakymas.automobilis_id.vin_kodas }}</li>
     <li><b>Užsakymo data:</b> {{ uzsakymas.data }}</li>

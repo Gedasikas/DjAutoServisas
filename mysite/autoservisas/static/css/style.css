@@ -1,0 +1,44 @@
+a:link {
+  color: #ff9900;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #ffcc99;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #cc3300;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #cc9900;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+h1 {
+  color: #ff9900;
+  margin-left: 20px;
+}
+h2 {
+  color: #ff9900;
+  margin-left: 20px;
+}
+h3 {
+  color: #ff9900;
+  margin-left: 20px;
+}
+h4 {
+  color: #ff9900;
+  margin-left: 20px;
+}
+h5 {
+  color: #ff9900;
+  margin-left: 20px;
+}

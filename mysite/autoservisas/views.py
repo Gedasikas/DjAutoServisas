@@ -8,8 +8,10 @@ from django.shortcuts import redirect
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
-from .forms import UzsakymoKomentaraiForma
+from .forms import UzsakymoKomentaraiForma, UserUpdateForm, ProfilisUpdateForm
 from django.views.generic.edit import FormMixin
+from django.contrib.auth.decorators import login_required
+
 
 @csrf_protect
 def register(request):
@@ -42,6 +44,7 @@ def register(request):
         else:
             messages.error(request, 'Vartotojo vardas neįvestas!')
     return render(request, 'registration/register.html')
+
 
 def index(request):
     num_paslaugu = Paslauga.objects.count()
@@ -84,8 +87,10 @@ class UzsakymasDetailView(FormMixin, generic.DetailView):
     template_name = 'uzsakymas.html'
     context_object_name = "uzsakymas"
     form_class = UzsakymoKomentaraiForma
+
     def get_success_url(self):
         return reverse('uzsakymai_detail', kwargs={'pk': self.object.id})
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
@@ -93,11 +98,13 @@ class UzsakymasDetailView(FormMixin, generic.DetailView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
     def form_valid(self, form):
         form.instance.uzsakymas = self.object
         form.instance.komentatorius = self.request.user
         form.save()
         return super(UzsakymasDetailView, self).form_valid(form)
+
 
 class UzsakymasByUserListView(LoginRequiredMixin, generic.ListView):
     model = Uzsakymas
@@ -128,3 +135,24 @@ def search(request):
                                                 Q(automobilio_modelis_id__modelis__icontains=query)
                                                 )
     return render(request, 'search.html', {'automobiliai': search_results, 'query': query})
+
+
+@login_required
+def profilis(request):
+    if request.method == "POST":
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfilisUpdateForm(request.POST, request.FILES, instance=request.user.profilis)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f"Profilis atnaujintas")
+            return redirect('profilis')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfilisUpdateForm(instance=request.user.profilis)
+
+    kontekstas = {
+        'u_form': u_form,
+        'p_form': p_form,
+    }
+    return render(request, 'profilis.html', kontekstas)
