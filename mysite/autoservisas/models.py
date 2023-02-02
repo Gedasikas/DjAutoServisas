@@ -3,33 +3,34 @@ from django.contrib.auth.models import User
 from datetime import date
 from tinymce.models import HTMLField
 from PIL import Image
+from django.utils.translation import gettext_lazy as _
 
 class Automobilio_modelis(models.Model):
-    marke = models.CharField('Markė', max_length=100, help_text='Įveskite automobilio markę (pvz.: Toyota')
-    modelis = models.CharField('Modelis', max_length=100, help_text='Įveskite automobilio modelį (pvz.: Corolla')
+    marke = models.CharField(_('Manufacturer'), max_length=100, help_text='Įveskite automobilio markę (pvz.: Toyota')
+    modelis = models.CharField(_('Model'), max_length=100, help_text='Įveskite automobilio modelį (pvz.: Corolla')
 
     def __str__(self):
         return (f"{self.marke} - {self.modelis}")
 
     class Meta:
-        verbose_name = 'Automobilio modelis'
-        verbose_name_plural = 'Automobilių modeliai'
+        verbose_name = _('Vehicle\'s model')
+        verbose_name_plural = _('Vehicle models')
 
 class Automobilis(models.Model):
-    valstybinis_nr = models.CharField('Valstybinis_NR', max_length=20)
+    valstybinis_nr = models.CharField(_('License plate number'), max_length=20)
     automobilio_modelis_id = models.ForeignKey('Automobilio_modelis', on_delete=models.SET_NULL, null=True)
-    vin_kodas = models.CharField('VIN_Kodas', max_length=17)
-    kliento_v = models.CharField('Vardas', max_length=50)
-    kliento_p = models.CharField('Pavardė', max_length=50)
-    paveikslelis = models.ImageField('Mašinos paveikslėlis', upload_to='paveiksleliai', null=True, blank=True)
-    komentarai = HTMLField('Komentarai', null=True, blank=True, default='Nėra komentarų')
+    vin_kodas = models.CharField(_('VIN code'), max_length=17)
+    kliento_v = models.CharField(_('Name'), max_length=50)
+    kliento_p = models.CharField(_('Surname'), max_length=50)
+    paveikslelis = models.ImageField(_('Vehicle photo'), upload_to='paveiksleliai', null=True, blank=True)
+    komentarai = HTMLField(_('Comments'), null=True, blank=True, default=_('No comments'))
 
     def __str__(self):
         return (f"{self.automobilio_modelis_id} ({self.valstybinis_nr})")
 
     class Meta:
-        verbose_name = 'Automobilis'
-        verbose_name_plural = 'Automobiliai'
+        verbose_name = _('Vehicle')
+        verbose_name_plural = _('Vehicles')
 
 class Uzsakymas(models.Model):
     data = models.DateField('Užsakymo data', null=True, blank=True)

@@ -1,14 +1,20 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block title%}Auto serviso užsakymai{% endblock %}
 {% block content%}
 <h1>Auto serviso užsakymai</h1>
 <hr>
 <ul>
-    <li>Paslaugų skaičius: {{ num_paslaugu }}</li>
+<!--    <li>Paslaugų skaičius: {{ num_paslaugu }}</li>-->
+<!--    <br>-->
+<!--    <li>Atliktų paslaugų skaičius: {{ num_atliktos_paslaugos }}</li>-->
+<!--    <br>-->
+<!--    <li>Automobilių skaičius: {{ num_automobiliu }}</li>-->
+    <li>{% trans "Number of available services" %}: {{ num_paslaugu }}</li>
     <br>
-    <li>Atliktų paslaugų skaičius: {{ num_atliktos_paslaugos }}</li>
+    <li>{% trans "Number of finished services" %}: {{ num_atliktos_paslaugos }}</li>
     <br>
-    <li>Automobilių skaičius: {{ num_automobiliu }}</li>
+    <li>{% trans "Number of present vehicles" %}: {{ num_automobiliu }}</li>
 </ul>
 <p>Čia jūs lankotes {{ num_vizitai }}-ą kartą.</p>
 {% endblock %}

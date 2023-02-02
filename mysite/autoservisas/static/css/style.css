@@ -22,23 +22,9 @@ a:active {
   text-decoration: underline;
 }
 
-h1 {
+h1, h2, h3, h4, h5{
   color: #ff9900;
   margin-left: 20px;
 }
-h2 {
-  color: #ff9900;
-  margin-left: 20px;
-}
-h3 {
-  color: #ff9900;
-  margin-left: 20px;
-}
-h4 {
-  color: #ff9900;
-  margin-left: 20px;
-}
-h5 {
-  color: #ff9900;
-  margin-left: 20px;
-}
+
+

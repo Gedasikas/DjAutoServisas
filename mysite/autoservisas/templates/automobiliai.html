@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block title%}AutoServisas{% endblock %}
 {% block content%}
 {% load static %}
-<h1>Garažo automobiliai:</h1>
+<h1>{% trans "Present Vehicles" %}:</h1>
 <hr>
 {% if automobiliai %}
 <div class="row">
@@ -23,7 +24,7 @@
     {% endfor %}
 </div>
 {% else %}
-<p>Bibliotekoje knygų nėra.</p>
+<p>{% trans "There are no present vehicles" %}.</p>
 {% endif %}
 <div class="container puslapiai">
     <nav aria-label="...">

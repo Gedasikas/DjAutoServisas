@@ -14,5 +14,6 @@ urlpatterns = [
     path('search/<int:automobilis_id>', views.automobilis, name='automobilis'),
     path('manouzsakymai/', views.UzsakymasByUserListView.as_view(), name='manouzsakymai'),
     path('register/', views.register, name='register'),
-    path('profilis/', views.profilis, name='profilis')
+    path('profilis/', views.profilis, name='profilis'),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]

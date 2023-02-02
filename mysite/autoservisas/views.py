@@ -11,7 +11,7 @@ from django.contrib import messages
 from .forms import UzsakymoKomentaraiForma, UserUpdateForm, ProfilisUpdateForm
 from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
-
+from django.views.generic import CreateView
 
 @csrf_protect
 def register(request):
@@ -113,6 +113,17 @@ class UzsakymasByUserListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return Uzsakymas.objects.filter(uzsakovas=self.request.user).order_by('ivykdytas_iki')
+
+# class UzsakymasUserCreateView(LoginRequiredMixin, generic.CreateView):
+#     model = Uzsakymas
+#     fields = ['automobilis_id', 'ivykdytas_iki']
+#     success_url = 'autoservisas/manouzsakymai/'
+#     template_name =
+#
+#     def form_valid(self, form):
+#         form.instance.uzsakovas = self.request.user
+#         return super().form_valid(form)
+
 
 
 def paslaugos(request):
